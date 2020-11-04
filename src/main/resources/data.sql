@@ -1,13 +1,20 @@
-drop table if exists clients;
-drop table if exists client;
-drop table if exists employee;
-drop table if exists account;
+drop table if exists CLIENT;
+drop table if exists ACCOUNT;
+drop table if exists EMPLOYEE;
+drop table if exists SCHEDULE;
+drop table if exists SERVICE;
+drop table if exists Appointment;
+drop table if exists EMPLOYEE_SERVICE;
+drop table if exists ACCOUNT_APPOINTMENT;
 
 -- Table : account
 create table account(
     id int AUTO_INCREMENT primary Key,
     username varchar(255) not null,
-    password varchar(255) not null
+    password varchar(255) not null,
+    ISADMIN BOOLEAN not null,
+    ISEMPLOYEE BOOLEAN not null,
+    ISCLIENT BOOLEAN not null
 );
 
 -- Table : client
@@ -17,14 +24,6 @@ create table client(
     lastname varchar(255) not null,
     phonenumber varchar(255) not null,
     address varchar(255) not null,
-    account_id int not null,
-    foreign key(account_id) references account(id)
-);
-
--- Table : role
-create table role(
-    id int auto_increment primary key,
-    rolename varchar(255),
     account_id int not null,
     foreign key(account_id) references account(id)
 );
@@ -86,25 +85,17 @@ CREATE TABLE schedule (
 
 -- Insert data for testing.
 
-insert into account(username,password) values
-    ('a@admin.com','123'),
-    ('b@client.com','123'),
-    ('c@client.com','123'),
-    ('d@employee.com','123'),
-    ('e@employee.com','123'),
-    ('f@client.com','123'),
-    ('g@client.com','123'),
-    ('h@employee.com','123');
+insert into account(username,password,isadmin,isemployee,isclient) values
+    ('a@admin.com','123',1,1,0),
+    ('b@client.com','123',0,0,1),
+    ('c@client.com','123',0,0,1),
+    ('d@employee.com','123',0,1,0),
+    ('e@employee.com','123',0,1,0),
+    ('f@client.com','123',0,0,1),
+    ('g@client.com','123',0,0,1),
+    ('h@employee.com','123',0,1,0);
 
-insert into role(rolename,account_id) values
-    ('admin',1),
-    ('client',2),
-    ('client',3),
-    ('employee',4),
-    ('employee',5),
-    ('client',6),
-    ('client',7),
-    ('employee',8);
+
 
 insert into service(name,description) values
     ('hair cut','cut your hair'),

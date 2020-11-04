@@ -19,11 +19,23 @@ public class Account{
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "ISADMIN")
+    private boolean admin;
+
+    @Column(name = "ISEMPLOYEE")
+    private boolean employee;
+
+    @Column(name = "ISCLIENT")
+    private boolean client;
+
     protected Account(){}
 
-    public Account(String username, String password){
+    public Account(String username, String password, boolean admin, boolean employee, boolean client){
         this.username = username;
         this.password = password;
+        this.admin = admin;
+        this.employee = employee;
+        this.client = client;
     }
 
     public Long getId(){
@@ -36,6 +48,30 @@ public class Account{
 
     public String getPassword(){
         return this.password;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public boolean isClient() {
+        return client;
+    }
+
+    public boolean isEmployee() {
+        return employee;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public void setClient(boolean client) {
+        this.client = client;
+    }
+
+    public void setEmployee(boolean employee) {
+        this.employee = employee;
     }
 
     public void setUsername(String username){this.username = username;}

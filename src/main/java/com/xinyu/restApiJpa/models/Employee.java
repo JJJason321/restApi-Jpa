@@ -2,6 +2,7 @@ package com.xinyu.restApiJpa.models;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,38 +12,78 @@ public class Employee {
 
 
     private @Id @GeneratedValue Long id;
-    private String name;
-    private String role;
 
-    Employee(){}
+    @Column(name="FIRSTNAME")
+    private String firstName;
 
-    Employee(String name, String role){
-        this.name = name;
-        this. role = role;
+    @Column(name="LASTNAME")
+    private String lastName;
+
+    @Column(name="PHONENUMBER")
+    private String phoneNumber;
+
+    @Column(name="ADDRESS")
+    private String address;
+
+    @Column(name="ACCOUNT_ID")
+    private Long account_id;
+
+    protected Employee(){}
+
+    public Employee(String firstname, String lastName, String phoneNumber, String address, Long account_id){
+        this.firstName = firstname;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.account_id = account_id;
+
     }
 
     public Long getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getRole() {
-        return this.role;
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(Long account_id) {
+        this.account_id = account_id;
+    }
 }
