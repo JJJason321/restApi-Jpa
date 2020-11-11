@@ -2,11 +2,17 @@ package com.xinyu.restApiJpa.controllers;
 
 import com.xinyu.restApiJpa.models.*;
 import com.xinyu.restApiJpa.repositorys.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.List;
 import java.util.Optional;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/api/")
 public class HomeController {
@@ -21,7 +27,15 @@ public class HomeController {
     private ScheduleRepository scheduleRepository;
     private ServiceRepository serviceRepository;
 
-    public HomeController(AccountRepository accountRepository, AccountAppointmentRepository accountAppointmentRepository, AppointmentRepository appointmentRepository, ClientRepository clientRepository, EmployeeRepository employeeRepository, EmployeeServiceRepository employeeServiceRepository, ScheduleRepository scheduleRepository, ServiceRepository serviceRepository) {
+    public HomeController(AccountRepository accountRepository,
+                          AccountAppointmentRepository accountAppointmentRepository,
+                          AppointmentRepository appointmentRepository,
+                          ClientRepository clientRepository,
+                          EmployeeRepository employeeRepository,
+                          EmployeeServiceRepository employeeServiceRepository,
+                          ScheduleRepository scheduleRepository,
+                          ServiceRepository serviceRepository
+    ) {
         this.accountRepository = accountRepository;
         this.accountAppointmentRepository = accountAppointmentRepository;
         this.appointmentRepository = appointmentRepository;
@@ -30,6 +44,7 @@ public class HomeController {
         this.employeeServiceRepository = employeeServiceRepository;
         this.scheduleRepository = scheduleRepository;
         this.serviceRepository = serviceRepository;
+
     }
 
 
@@ -37,6 +52,7 @@ public class HomeController {
     @GetMapping("/accounts")
     public List<Account> getAllAccount(){
         return this.accountRepository.findAll();
+
     }
 
     @GetMapping("/accounts/{id}")
@@ -46,8 +62,46 @@ public class HomeController {
 
     @PostMapping("/accounts")
     public Account account(@RequestBody Account account){
+
+        System.out.println(account);
+        System.out.println(account.getUsername());
         return accountRepository.save(account);
     }
+
+    @PostMapping("/signIn")
+    public ResponseEntity<?> SignIn(@RequestBody Account account){
+        Long inputId = account.getId();
+        System.out.println(inputId);
+        String inputEmail = account.getUsername();
+        String inputPassword = account.getPassword();
+        Account acc = accountRepository.findByEmail(inputEmail);
+        String realPassword = acc.getPassword();
+        if(realPassword.equals(inputPassword)){
+            System.out.println("password matches");
+            return new ResponseEntity<>(acc, HttpStatus.OK);
+        }else{
+            System.out.println("passworkd dont matches");
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    //CreateAccount Api
+    @PostMapping("/createaccount")
+    public ResponseEntity<?> checkUsername(@RequestBody Account account){
+        String inputUsername = account.getUsername();
+        System.out.println(inputUsername);
+        //Account acc = accountRepository.findByEmail(inputUsername);
+        int result = accountRepository.countByEmail(inputUsername);
+        if(result==0){
+            System.out.println("everything is ok");
+            accountRepository.save(account);
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        }else{
+            System.out.println("email existes");
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
 
     //AccountAppointment API
     @GetMapping("/accountAppointments")
@@ -88,6 +142,9 @@ public class HomeController {
 
     @PostMapping("/clients")
     public Client client(@RequestBody Client client){
+        System.out.println(client.getAccount_id());
+        System.out.println(client.getFirstName());
+        System.out.println(client.getLastName());
         return clientRepository.save(client);
     }
 

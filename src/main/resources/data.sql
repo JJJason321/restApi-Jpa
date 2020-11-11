@@ -22,8 +22,8 @@ create table client(
     id INT AUTO_INCREMENT primary Key,
     firstname varchar(255) not null,
     lastname varchar(255) not null,
-    phonenumber varchar(255) not null,
-    address varchar(255) not null,
+    phonenumber varchar(255),
+    address varchar(255),
     account_id int not null,
     foreign key(account_id) references account(id)
 );
@@ -138,10 +138,10 @@ insert into appointment(appointment_date,start_time,end_time,service_id) values
     ('2020-10-13','09:00:00','10:00:00',3);
 
 insert into client(firstname,lastname,phonenumber,address,account_id) values
-    ('Alex', '-client', '110','ablack',1),
+    ('Alex', '-client', '110','ablack',2),
     ('Bob', '-client', '120','bwhite',4),
-    ('Carl', '-client', '130','cgreen',2),
-    ('Doge', '-client', '150','dyellow',3);
+    ('Carl', '-client', '130','cgreen',7),
+    ('Doge', '-client', '150','dyellow',6);
 
 insert into account_appointment(appointment_id,account_id) values
     (1,1),
@@ -211,10 +211,10 @@ insert into account_appointment(appointment_id,account_id) values
 
 
 insert into employee(firstname,lastname,phonenumber,address,account_id) values
-    ('Frank', '-employee', '210','Fblack',7),
+    ('Frank', 'owner', '210','Fblack',1),
     ('Gelen', '-employee', '220','Gwhite',5),
     ('Hallen', '-employee', '230','Hgreen',8),
-    ('Isermal', '-employee', '250','Iyellow',6);
+    ('Isermal', '-employee', '250','Iyellow',4);
 
 insert into schedule(employee_id,work_date,start_work_time,end_work_time) values
     (1,'2020-10-01','09:00:00','17:00:00'),
