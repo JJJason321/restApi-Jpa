@@ -2,16 +2,14 @@ package com.xinyu.restApiJpa.models;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity(name= "EMPLOYEE")
 public class Employee {
 
-
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name="FIRSTNAME")
     private String firstName;

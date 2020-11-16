@@ -139,7 +139,7 @@ insert into appointment(appointment_date,start_time,end_time,service_id) values
 
 insert into client(firstname,lastname,phonenumber,address,account_id) values
     ('Alex', '-client', '110','ablack',2),
-    ('Bob', '-client', '120','bwhite',4),
+    ('Bob', '-client', '120','bwhite',3),
     ('Carl', '-client', '130','cgreen',7),
     ('Doge', '-client', '150','dyellow',6);
 

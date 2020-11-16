@@ -102,6 +102,101 @@ public class HomeController {
         }
     }
 
+    @PostMapping("/appointmentlist")
+    public void appointmentList(@RequestBody Account account){
+        Long inputId = account.getId();
+        System.out.println(inputId);
+    }
+
+    @GetMapping("/appointmentlist/{id}")
+    public ResponseEntity<?> appointmentList(@PathVariable Long id){
+        Long inputId = id;
+        //System.out.println(inputId);
+        List<Long> appointmentIdList = accountAppointmentRepository.findAppointmentIdByAccountId(inputId);
+        System.out.println(appointmentIdList);
+
+        if(appointmentIdList.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        List<Appointment> appointmentList = appointmentRepository.getAppointmentByOneId(appointmentIdList);
+        //System.out.println(appointmentList);
+        return new ResponseEntity<>(appointmentList, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/clientInfo/{id}")
+    public ResponseEntity<?> clientInfo(@PathVariable Long id){
+        Long inputId = id;
+        Client client = clientRepository.getClientByAccountId(inputId);
+        System.out.println(client);
+        if(client==null){
+            System.out.println("no matcing client for given account id");
+            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
+
+        }
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @GetMapping("/employeeInfo/{id}")
+    public ResponseEntity<?> employeeInfo(@PathVariable Long id){
+        Long inputId = id;
+        Employee employee = employeeRepository.getEmployeeByAccountId(inputId);
+        System.out.println(employee);
+        if(employee==null){
+            System.out.println("no matching employee for given account id");
+            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
+
+        }
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateclientinfo")
+    public ResponseEntity<?> updateclientInfo(@RequestBody Client client){
+        /*
+        System.out.println("here called");
+        System.out.println(client.getFirstName());
+        System.out.println(client.getLastName());
+        System.out.println(client.getAccount_id());
+        System.out.println(client.getAddress());
+        System.out.println(client.getPhoneNumber());
+    */
+        String firstName = client.getFirstName();
+        String lastName = client.getLastName();
+        String phoneNumber = client.getPhoneNumber();
+        String address = client.getAddress();
+        Long account_id = client.getAccount_id();
+
+        clientRepository.updateClientInfo(firstName,lastName,phoneNumber,address,account_id);
+
+        Client new_client = clientRepository.getClientByAccountId(account_id);
+
+        return new ResponseEntity<>(new_client, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateemployeeinfo")
+    public ResponseEntity<?> updatemployeeInfo(@RequestBody Employee employee){
+
+        /*
+        System.out.println("here called");
+        System.out.println(employee.getFirstName());
+        System.out.println(employee.getLastName());
+        System.out.println(employee.getAccount_id());
+        System.out.println(employee.getAddress());
+        System.out.println(employee.getPhoneNumber());
+        */
+        String firstName = employee.getFirstName();
+        String lastName = employee.getFirstName();
+        String phoneNumber = employee.getPhoneNumber();
+        String address = employee.getAddress();
+        Long account_id = employee.getAccount_id();
+
+        employeeRepository.updateEmployeeInfo(firstName,lastName,phoneNumber,address,account_id);
+
+        Employee new_employee = employeeRepository.getEmployeeByAccountId(account_id);
+
+        return new ResponseEntity<>(new_employee, HttpStatus.OK);
+    }
 
     //AccountAppointment API
     @GetMapping("/accountAppointments")

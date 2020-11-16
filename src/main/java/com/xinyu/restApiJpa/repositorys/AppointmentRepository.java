@@ -10,4 +10,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
         @Query("SELECT a FROM APPOINTMENT a where SERVICE_ID = 1")
         List<Appointment> getAppointmentByAccountId();
+
+        @Query("SELECT a FROM APPOINTMENT a WHERE (a.id) in (?1)")
+        List<Appointment> getAppointmentByOneId(List<Long> id);
 }
