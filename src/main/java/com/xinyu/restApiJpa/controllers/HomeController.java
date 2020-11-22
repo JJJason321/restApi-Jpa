@@ -63,8 +63,8 @@ public class HomeController {
     @PostMapping("/accounts")
     public Account account(@RequestBody Account account){
 
-        System.out.println(account);
-        System.out.println(account.getUsername());
+        //System.out.println(account);
+        //System.out.println(account.getUsername());
         return accountRepository.save(account);
     }
 
@@ -77,10 +77,10 @@ public class HomeController {
         Account acc = accountRepository.findByEmail(inputEmail);
         String realPassword = acc.getPassword();
         if(realPassword.equals(inputPassword)){
-            System.out.println("password matches");
+            //System.out.println("password matches");
             return new ResponseEntity<>(acc, HttpStatus.OK);
         }else{
-            System.out.println("passworkd dont matches");
+            //System.out.println("passworkd dont matches");
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -89,15 +89,15 @@ public class HomeController {
     @PostMapping("/createaccount")
     public ResponseEntity<?> checkUsername(@RequestBody Account account){
         String inputUsername = account.getUsername();
-        System.out.println(inputUsername);
+        //System.out.println(inputUsername);
         //Account acc = accountRepository.findByEmail(inputUsername);
         int result = accountRepository.countByEmail(inputUsername);
         if(result==0){
-            System.out.println("everything is ok");
+            //System.out.println("everything is ok");
             accountRepository.save(account);
             return new ResponseEntity<>(account, HttpStatus.OK);
         }else{
-            System.out.println("email existes");
+            //System.out.println("email existes");
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -105,7 +105,7 @@ public class HomeController {
     @PostMapping("/appointmentlist")
     public void appointmentList(@RequestBody Account account){
         Long inputId = account.getId();
-        System.out.println(inputId);
+        //System.out.println(inputId);
     }
 
     @GetMapping("/appointmentlist/{id}")
@@ -113,7 +113,7 @@ public class HomeController {
         Long inputId = id;
         //System.out.println(inputId);
         List<Long> appointmentIdList = accountAppointmentRepository.findAppointmentIdByAccountId(inputId);
-        System.out.println(appointmentIdList);
+        //System.out.println(appointmentIdList);
 
         if(appointmentIdList.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -129,9 +129,9 @@ public class HomeController {
     public ResponseEntity<?> clientInfo(@PathVariable Long id){
         Long inputId = id;
         Client client = clientRepository.getClientByAccountId(inputId);
-        System.out.println(client);
+        //System.out.println(client);
         if(client==null){
-            System.out.println("no matcing client for given account id");
+            //System.out.println("no matcing client for given account id");
             return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
 
         }
@@ -140,9 +140,10 @@ public class HomeController {
 
     @GetMapping("/employeeInfo/{id}")
     public ResponseEntity<?> employeeInfo(@PathVariable Long id){
+        System.out.println("this called");
         Long inputId = id;
         Employee employee = employeeRepository.getEmployeeByAccountId(inputId);
-        System.out.println(employee);
+        //System.out.println(employee);
         if(employee==null){
             System.out.println("no matching employee for given account id");
             return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
@@ -257,6 +258,11 @@ public class HomeController {
     }
 
 
+    @PostMapping("/addschedule")
+    public Schedule addSchedule(@RequestBody Schedule schedule){
+        //System.out.println(schedule);
+        return scheduleRepository.save(schedule);
+    }
 
 
 }
