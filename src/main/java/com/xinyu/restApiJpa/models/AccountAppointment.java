@@ -1,16 +1,13 @@
 package com.xinyu.restApiJpa.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "ACCOUNT_APPOINTMENT")
 public class AccountAppointment {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "APPOINTMENT_ID")
@@ -19,7 +16,7 @@ public class AccountAppointment {
     @Column(name = "ACCOUNT_ID")
     private Long accountId;
 
-    protected AccountAppointment(){}
+    public AccountAppointment(){}
 
     public AccountAppointment(Long appointmentId, Long accountId) {
         this.appointmentId = appointmentId;

@@ -4,10 +4,7 @@ package com.xinyu.restApiJpa.models;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import javax.annotation.processing.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -16,7 +13,7 @@ import java.sql.Time;
 public class Appointment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "APPOINTMENT_DATE")
@@ -31,7 +28,7 @@ public class Appointment {
     @Column(name = "SERVICE_ID")
     private Long serviceId;
 
-    protected Appointment(){
+    public Appointment(){
 
     }
 

@@ -10,4 +10,6 @@ public interface AccountAppointmentRepository extends JpaRepository<AccountAppoi
 
     @Query("SELECT appointmentId FROM ACCOUNT_APPOINTMENT a WHERE (a.accountId) = (?1)")
     List<Long> findAppointmentIdByAccountId(Long id);
+
+
 }

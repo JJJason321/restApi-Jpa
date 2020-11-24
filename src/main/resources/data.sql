@@ -41,7 +41,7 @@ CREATE TABLE appointment (
     appointment_date date NOT NULL,
     start_time time NOT NULL,
     end_time time NOT NULL,
-    service_id int NOT NULL,
+    service_id int,
     foreign key(service_id) references service(id)
 );
 
@@ -104,6 +104,7 @@ insert into service(name,description) values
     ('Skin care', 'care your skin');
 
 insert into appointment(appointment_date,start_time,end_time,service_id) values
+
     ('2020-10-01','10:00:00','11:00:00',4),
     ('2020-10-01','12:00:00','13:00:00',2),
     ('2020-10-01','14:00:00','15:00:00',1),
@@ -135,7 +136,8 @@ insert into appointment(appointment_date,start_time,end_time,service_id) values
     ('2020-10-12','10:00:00','11:00:00',4),
     ('2020-10-13','12:00:00','13:00:00',2),
     ('2020-10-13','14:00:00','15:00:00',1),
-    ('2020-10-13','09:00:00','10:00:00',3);
+    ('2020-10-13','09:00:00','10:00:00',3),
+    ('2020-10-01','13:00:00','14:00:00',3);
 
 insert into client(firstname,lastname,phonenumber,address,account_id) values
     ('Alex', '-client', '110','ablack',2),
@@ -144,30 +146,31 @@ insert into client(firstname,lastname,phonenumber,address,account_id) values
     ('Doge', '-client', '150','dyellow',6);
 
 insert into account_appointment(appointment_id,account_id) values
+
     (1,1),
-    (1,5),
-    (2,2),
+    (1,7),
+    (2,4),
     (2,6),
-    (3,3),
-    (3,7),
-    (4,4),
+    (3,5),
+    (3,2),
     (4,8),
+    (4,3),
     (5,1),
     (5,6),
-    (6,2),
+    (6,4),
     (6,7),
-    (7,3),
-    (7,8),
-    (8,4),
-    (8,5),
+    (7,6),
+    (7,2),
+    (8,8),
+    (8,3),
     (9,1),
-    (9,7),
-    (10,2),
-    (10,8),
+    (9,2),
+    (10,5),
+    (10,6),
     (11,3),
-    (11,5),
-    (12,4),
-    (12,6),
+    (11,4),
+    (12,8),
+    (12,7),
     (13,1),
     (13,8),
     (14,2),
@@ -207,11 +210,12 @@ insert into account_appointment(appointment_id,account_id) values
     (31,3),
     (31,6),
     (32,4),
-    (32,7);
-
+    (32,7),
+    (33,1),
+    (33,5);
 
 insert into employee(firstname,lastname,phonenumber,address,account_id) values
-    ('Frank', 'owner', '210','Fblack',1),
+    ('Frank', '-owner', '210','Fblack',1),
     ('Gelen', '-employee', '220','Gwhite',5),
     ('Hallen', '-employee', '230','Hgreen',8),
     ('Isermal', '-employee', '250','Iyellow',4);
